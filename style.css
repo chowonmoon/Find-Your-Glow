@@ -1,0 +1,1371 @@
+@font-face {
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'S-CoreDream-Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'S-CoreDream-3Light', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: #fff;
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================
+   HEADER (AI MAKEUP MUSE)
+========================= */
+.app-header {
+  width: 100%;
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 500;          /* ✅ 필기체 느낌 제거 + 진짜 볼드 */
+  letter-spacing: 0.1em;   /* ✅ 고급 브랜드 느낌 */
+  color: #000;
+  font-family: 'Pretendard', sans-serif;  /* ✅ 명조 완전 차단 */
+}
+
+/* =========================
+   START PAGE LAYOUT
+========================= */
+.app-main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px 80px;
+}
+
+.start-card {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* =========================
+   IMAGE
+========================= */
+.start-card img {
+  width: 100%;
+  border-radius: 0;
+  margin-bottom: 40px;
+}
+
+/* =========================
+   TITLE
+========================= */
+.intro-main {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+.intro-desc {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.start-btn {
+  width: 100%;
+  padding: 18px 0;
+  margin-top: 40px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.start-btn:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   FOOTER TEXT
+========================= */
+.intro-team-credit {
+  margin-top: 60px;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+/* =========================
+   IMAGE MOOD HIGHLIGHT
+========================= */
+.highlight-glow {
+  font-weight: 500;
+  color: #111;
+  background: linear-gradient(120deg, #dbb2b7, #f6dee3);
+  padding: 0.1px 0.5px;
+  border-radius: 13px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+
+
+
+.intro-main {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* =========================
+   STEP 01 – PROFILE SETUP
+========================= */
+
+/* 상단 STEP 텍스트 */
+.card-header span {
+  font-family: 'S-CoreDream-Light', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: #999;
+}
+
+/* WHO ARE YOU? 타이틀 */
+.sub-title {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+/* 설명 문구 */
+.intro-text {
+  font-family: 'S-CoreDream-Light', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* 얼굴형 그리드 (3x2) */
+.face-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.face-option input {
+  display: none;
+}
+
+.face-box {
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 14px 10px 16px;
+  text-align: center;
+  transition: 0.25s;
+  cursor: pointer;
+  background: #fff;
+}
+
+.face-option input:checked + .face-box {
+  border-color: #111;
+  box-shadow: 0 8px 18px rgba(219, 178, 183, 0.35);
+}
+
+.face-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.face-label {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  font-size: 0.9rem;
+  display: block;
+  color: #111;
+}
+
+.face-label span {
+  display: block;
+  font-family: 'S-CoreDream-Light', sans-serif;
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* 닉네임 입력 영역 */
+.nickname-label {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  display: block;
+  color: #111;
+}
+
+.modern-input {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  padding: 10px 6px;
+  border: none;
+  border-bottom: 2px solid #dbb2b7;
+  font-size: 0.95rem;
+  text-align: center;
+  font-family: 'S-CoreDream-Light', sans-serif;
+}
+
+.modern-input:focus {
+  outline: none;
+  border-bottom-color: #111;
+}
+
+/* 버튼 하단 여백 정리 */
+.card-footer {
+  margin-top: 20px;
+}
+
+/* =========================
+   GLOBAL CARD SIZE FIX
+========================= */
+
+/* 모든 카드 외곽 사이즈 통일 */
+.terminal-card {
+  width: 100%;
+  max-width: 420px;   /* ✅ start와 step 공통 기준 */
+  margin: 0 auto;
+}
+
+/* 카드 안쪽 여백 통일 */
+.card-body {
+  padding: 0;        /* ✅ start와 step의 차이 제거 */
+}
+
+/* STEP처럼 폼이 안쪽 여백을 관리하게 */
+.terminal-card form.card-body {
+  padding: 0;
+}
+
+/* =========================
+   CARD FOOTER (공통 버튼 영역)
+========================= */
+.card-footer {
+  display: flex;
+  justify-content: center;   /* ✅ 버튼 중앙 정렬 */
+  align-items: center;
+  margin-top: 30px;          /* ✅ 위 콘텐츠와 간격 */
+  padding-top: 10px;        /* ✅ 답답하지 않게 */
+  border-top: none;         /* ✅ 너가 말한 것처럼 선 제거 */
+}
+/* =========================
+   GLOBAL PRIMARY BUTTON (START & NEXT 공통)
+========================= */
+
+.btn-primary {
+  width: 100%;
+  max-width: 300px;
+  height: 52px;
+
+  background: #000;
+  color: #fff;
+
+  border: none;
+  border-radius: 999px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   STEP 01 – BLOCK DIVISION (UX 개선)
+========================= */
+
+.step-block {
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 20px;
+  margin-bottom: 28px;
+
+  /* ✅ 흰 화면에서 구분되게 하는 핵심 */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+/* ✅ 1. 타이틀 블럭 */
+.step-block-header {
+  padding-top: 28px;    /* ✅ 위 여백 늘려서 아래로 밀기 */
+  padding-bottom: 26px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ✅ 블록 안에서 중앙 정렬 */
+  align-items: center;
+  text-align: center;
+}
+
+/* ✅ 2. 얼굴형 선택 블럭 */
+.step-block-face {
+  padding-top: 24px;
+  padding-bottom: 32px;
+}
+
+/* ✅ 이름 입력 블록을 더 깊은 카드로 강조 */
+.step-block-name {
+  padding-top: 28px;
+  padding-bottom: 30px;
+  background: #fff;
+
+  border-radius: 26px;
+
+  /* ✅ 얼굴형보다 더 강한 그림자 */
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.08),
+    0 4px 10px rgba(219, 178, 183, 0.18);
+}
+
+
+/* 모바일에서 너무 떠 보이지 않게 */
+@media (max-width: 480px) {
+  .step-block {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+}
+
+/* ✅ 얼굴형 → 이름 단계 전환용 강한 구분 레이어 */
+.step-block-face {
+  position: relative;
+  margin-bottom: 70px;   /* ✅ 이름 블록과 거리 확 벌림 */
+}
+
+.nickname-label {
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  margin-bottom: 18px;
+  font-weight: 700;
+  color: #111;
+  opacity: 0.9;
+}
+
+.sub-title {
+  margin-bottom: 10px;   /* ✅ WHO ARE YOU 아래 간격 */
+}
+
+.intro-text {
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+/* =========================
+   STEP 02 – PERSONAL COLOR BLOCK UX
+========================= */
+
+/* 선택 블럭 여백 */
+.step-block-choice {
+  padding-top: 28px;
+  padding-bottom: 32px;
+}
+
+/* YES / NO 2열 고정 */
+.tone-intro-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* YES / NO 카드 강조 */
+.choice-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 46px 20px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+}
+
+/* 선택 시 강조 */
+.face-option input:checked + .choice-box {
+  border: 2px solid #000;
+  box-shadow:
+    0 16px 36px rgba(0,0,0,0.12),
+    0 6px 16px rgba(210, 149, 161, 0.25);
+  transform: translateY(-4px);
+}
+
+.step-block {
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+.step-block-header {
+  padding-top: 28px;
+  padding-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.step-block-choice {
+  padding-top: 28px;
+  padding-bottom: 32px;
+}
+
+.tone-intro-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+
+/* =========================
+   TONE QUIZ IMAGE FIX (웜/쿨 이미지 크기 고정)
+========================= */
+
+.quiz-img {
+  width: 100%;
+  max-width: 140px;   /* ✅ 카드 안에서 딱 좋은 크기 */
+  height: 140px;      /* ✅ 정사각형 고정 */
+
+  object-fit: cover; /* ✅ 잘리는 대신 꽉 채움 */
+  border-radius: 50%;/* ✅ 동그랗게 유지 */
+
+  display: block;
+  margin: 0 auto 16px; /* ✅ 가운데 정렬 + 아래 여백 */
+}
+
+/* 웜 / 쿨 타이틀 */
+.quiz-title {
+  font-size: 1.3rem;   /* ✅ 지금보다 살짝 줄임 */
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* 설명 텍스트 (시크하고 깨끗한 ~ 무드) */
+.quiz-desc {
+  font-size: 0.85rem;  /* ✅ 작고 세련되게 */
+  line-height: 1.4;
+  color: #555;
+}
+
+/* 웜 / 쿨 타이틀 */
+.quiz-title {
+  font-size: 1.2rem;   /* ✅ 지금보다 살짝 줄임 */
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+/* 설명 텍스트 (시크하고 깨끗한 ~ 무드) */
+.quiz-desc {
+  font-size: 0.80rem;  /* ✅ 작고 세련되게 */
+  line-height: 1.2;
+  color: #555;
+}
+
+/* ✅ 웜톤 선택 시 */
+.quiz-warm input:checked + .choice-box {
+  border: 2px solid #f1b7a6;
+  background: #fff3ec;   /* ✅ 상아 + 살구빛 */
+  box-shadow:
+    0 10px 22px rgba(241, 183, 166, 0.35);
+}
+
+/* ✅ 쿨톤 선택 시 */
+.quiz-cool input:checked + .choice-box {
+  border: 2px solid #d6a3c7;
+  background: #f8f1f7;   /* ✅ 쿨 핑크빛 */
+  box-shadow:
+    0 10px 22px rgba(214, 163, 199, 0.35);
+}
+
+.choice-box {
+  border: 1.5px solid #eee;
+  transition: all 0.25s ease;
+}
+
+/* ✅ TIP 아이콘 크기 고정 */
+.tip-icon {
+  display: inline-flex;
+  width: 18px;     /* ✅ 아이콘 실제 크기 */
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.tip-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.6;
+}
+
+/* ✅ TIP 문구 스타일 조정 */
+.hint-text {
+  margin-top: 24px;
+  font-size: 0.8rem;   /* ✅ 기존보다 작게 */
+  color: #999;        /* ✅ 더 연하게 */
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/* =========================
+   STEP – PERSONAL COLOR 2x2 GRID
+========================= */
+
+.tone-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* ✅ 2x2 고정 */
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* 공통 톤 카드 */
+.tone-grid-2x2 .choice-box {
+  padding: 34px 10px;
+  border-radius: 22px;
+  background: #fff;
+  border: 1.5px solid #eee;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+}
+
+/* ✅ 봄웜 (연어/피치/상아 느낌) */
+.tone-spring input:checked + .choice-box {
+  border-color: #ffcea8;
+  background: #fff6ef;
+  box-shadow: 0 14px 30px rgba(255, 206, 168, 0.45);
+}
+
+/* ✅ 여름쿨 (쿨 핑크) */
+.tone-summer input:checked + .choice-box {
+  border-color: #f6bad7;
+  background: #fff4fa ;
+  box-shadow: 0 14px 30px rgba(246, 186, 215, 0.45);
+}
+
+/* ✅ 가을웜 (베이지/웜 브라운) */
+.tone-autumn input:checked + .choice-box {
+  border-color: #e3c387 ;
+  background: #fdf7ea;
+  box-shadow: 0 14px 30px rgba(230, 194, 137, 0.45);
+}
+
+/* ✅ 겨울쿨 (쨍한 쿨 핑크/플럼) */
+.tone-winter input:checked + .choice-box {
+  border-color: #cb90b9;
+  background: #faf3fb;
+  box-shadow: 0 14px 30px rgba(237, 144, 197, 0.45);
+}
+
+/* 텍스트 구성 */
+.tone-eng {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.tone-kor {
+  display: block;
+  font-size: 0.95rem;
+  color: #444;
+  font-weight: 600;
+}
+
+/* =========================
+   NICKNAME HIGHLIGHT
+========================= */
+
+.highlight-marker {
+  font-weight: 700;
+  color: #111;
+
+  background: linear-gradient(
+    120deg,
+    #f6dee3,   /* 밝은 핑크 */
+    #dbb2b7    /* 살구 핑크 */
+  );
+
+  padding: 0.5px 8px;
+  border-radius: 14px;
+
+  display: inline-block;
+  line-height: 1.4;
+
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* =========================
+   OCCASION IMAGE SIZE FIX
+========================= */
+
+.tpo-img {
+  width: 100%;
+  height: 130px;         /* ✅ 딱 보기 좋은 높이 */
+  object-fit: cover;   /* ✅ 비율 유지 + 잘림 */
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+
+/* =========================
+   TPO TAG SECTION VISIBILITY
+========================= */
+
+.step-block-tags {
+  margin-top: 36px;   /* ✅ 대항목과 거리 벌리기 */
+  padding-top: 24px;  /* ✅ 내부도 숨 쉴 공간 */
+}
+
+.hidden {
+  display: none;
+}
+
+.subtag-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #dbb2b7;   /* ✅ 핑크 통일 */
+  margin-bottom: 6px;
+}
+
+.subtag-helper-text {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-bottom: 14px;
+}
+
+.tag-container {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* =========================
+   OCCASION 2 x 3 GRID
+========================= */
+
+.occasion-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* ✅ 3열 */
+  gap: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* =========================
+   TAG CHIP BUTTON DESIGN
+========================= */
+
+.chip-btn {
+  border: 1.5px solid #e5e5e5;
+  background: #fff;
+  color: #444;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ✅ hover 효과 */
+.chip-btn:hover {
+  background: #f7f7f7;
+}
+
+/* ✅ 선택된 상태 (하나만 가능) */
+.chip-btn.selected {
+  border-color: #d48896;
+  background: #fdecef;
+  color: #111;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(212, 136, 150, 0.25);
+}
+
+/* ✅ 상황 카드 패딩 확장 */
+.occasion-grid-3col .choice-box {
+  padding: 22px 18px 20px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1.5px solid #eee;
+}
+
+.tab-wrapper {
+  display:flex; justify-content:center; gap:10px; margin-bottom:30px;
+}
+
+.tab-btn {
+  padding:8px 28px; border-radius:30px; border:1px solid #ddd;
+  background:#f9f9f9; color:#888; cursor:pointer;
+}
+
+.tab-btn.active {
+  background:#111; color:#fff; border-color:#111;
+}
+
+.mood-grid-list {
+  display:flex; flex-direction:column; gap:10px;
+  max-width:480px; margin:0 auto;
+}
+
+.style-pill-box {
+  padding:14px 20px;
+  border:1px solid #ddd; border-radius:14px;
+  text-align:center; background:#fff;
+}
+
+.mood-main-pill input:checked + .style-pill-box,
+.wannabe-pill input:checked + .style-pill-box {
+  border-color:#111;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+}
+
+.subtag-wrapper {
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px dashed #eee;
+  text-align:center;
+}
+
+.subtag-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 14px;   /* ✅ 가로/세로 여백 둘 다 여유 */
+  justify-content: center;
+  margin-top: 18px; /* ✅ 타이틀이랑도 띄우기 */}
+
+.subtag-input { display:none; }
+
+.subtag-label {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid #dbb2b7;   /* ✅ 검정 삭제 → 핑크 */
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.2s ease;
+}
+
+.subtag-label.selected {
+  background: linear-gradient(120deg, #f6dee3, #dbb2b7);
+  color: #111;
+  border-color: #dbb2b7;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(219, 178, 183, 0.35);
+}
+
+.wannabe-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:12px; max-width:500px; margin:0 auto;
+}
+
+.disabled {
+  opacity:.4;
+  pointer-events:none;
+}
+
+.sub-helper {
+  font-size:0.85rem; color:#999; text-align:center; margin-bottom:16px;
+}
+
+/* ✅ 라디오 버튼 기본 동그라미 숨기기 */
+.mood-main-pill input,
+.wannabe-pill input {
+    display: none;
+}
+
+/* ✅ 공통 블록 스타일 */
+.step-block {
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    text-align: center;
+}
+
+/* ✅ 세부 태그 블록 */
+.step-block-subtags {
+    border: 1px dashed #eee;
+}
+
+/* ✅ 세부 태그 그리드 */
+.subtag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.subtag-label {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: #fff;
+    transition: 0.2s;
+}
+
+.subtag-label.selected {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+/* =========================
+   ✅ MOOD → OCCASION 스타일 통일 패치
+========================= */
+
+/* ✅ 무드 메인 버튼 → occasion 카드처럼 */
+.mood-grid-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* occasion이랑 동일 */
+  gap: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.style-pill-box {
+  background: #fff;
+  border-radius: 24px;
+  padding: 22px 18px 20px;   /* occasion 카드 패딩과 동일 */
+  border: 1.5px solid #eee;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.04);
+  text-align: center;
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ✅ 무드 선택 시 → occasion 선택 효과와 동일 */
+.mood-main-pill input:checked + .style-pill-box {
+  border: 2px solid #000;
+  box-shadow:
+    0 16px 36px rgba(0,0,0,0.12),
+    0 6px 16px rgba(210, 149, 161, 0.25);
+  transform: translateY(-4px);
+}
+
+/* =========================
+   ✅ SUBTAG도 occasion 칩 스타일로 통일
+========================= */
+
+#subtags-wrapper {
+  margin-top: 36px;
+  padding-top: 24px;
+}
+
+#subtags-container {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.subtag-label {
+  border: 1.5px solid #e5e5e5;
+  background: #fff;
+  color: #444;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ✅ 선택된 상태 → occasion chip과 동일 */
+.subtag-label.selected {
+  border-color: #d48896;
+  background: #fdecef;
+  color: #111;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(212, 136, 150, 0.25);
+}
+
+/* =========================
+   ✅ WANNABE도 occasion 카드처럼 통일
+========================= */
+
+.wannabe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.wannabe-pill .style-pill-box {
+  background: #fff;
+  border-radius: 24px;
+  padding: 22px 18px 20px;
+  border: 1.5px solid #eee;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.04);
+  transition: 0.25s;
+}
+
+.wannabe-pill input:checked + .style-pill-box {
+  border: 2px solid #000;
+  box-shadow:
+    0 16px 36px rgba(0,0,0,0.12),
+    0 6px 16px rgba(210, 149, 161, 0.25);
+  transform: translateY(-4px);
+}
+
+/* =========================
+   ✅ WANNABE IMAGE CARD (OCCASION STYLE)
+========================= */
+
+.wannabe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.wannabe-card {
+  padding: 22px 18px 20px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1.5px solid #eee;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+/* ✅ 워너비 이미지 (occasion이랑 동일) */
+.wannabe-img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+/* ✅ 선택 시 효과 (occasion과 동일) */
+.wannabe-pill input:checked + .wannabe-card {
+  border: 2px solid #000;
+  box-shadow:
+    0 16px 36px rgba(0,0,0,0.12),
+    0 6px 16px rgba(210, 149, 161, 0.25);
+  transform: translateY(-4px);
+}
+
+/* ✅ TAB 아래 안내 문구 */
+.tab-helper-text {
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 28px;
+}
+
+.tab-helper-text small {
+  font-size: 0.72rem;
+  color: #aaa;
+  letter-spacing: 0.02em;
+}
+
+.constraint-gap {
+  height: 36px;
+}
+/* ✅ 섹션 제목: 밑줄 짧게 + 폰트 더 얇고 작게 */
+.section-label {
+  font-family: 'S-CoreDream-3Light', sans-serif;  /* ✅ Bold → Light로 변경 */
+  font-size: 0.95rem;                            /* ✅ 살짝 더 작게 */
+  font-weight: 600;                              /* ✅ 과하게 얇지 않게 */
+  color: #111;
+
+  text-align: center;
+  margin: 0 auto 16px;                           /* ✅ 가운데 정렬 */
+  padding-bottom: 6px;
+
+  width: fit-content;                            /* ✅ 밑줄 길이 텍스트만큼 */
+  border-bottom: 1px solid #eee;                 /* ✅ 얇고 부드러운 구분선 */
+  letter-spacing: 0.03em;                        /* ✅ 너무 퍼지지 않게 */
+}
+
+/* ✅ “선택 가능한 옵션 없음” 메인 안내 메시지 */
+#no-available-msg {
+  margin-top: 36px !important;
+
+  font-size: 1.15rem;        /* ✅ 확실하게 크게 */
+  font-weight: 700;
+  line-height: 1.6;
+
+  color: #111;               /* ✅ 회색 말고 메인 컬러 */
+  text-align: center;
+
+  background: #fff0f3;      /* ✅ 핑크톤 강조 박스 */
+  border-radius: 22px;
+
+  padding: 18px 20px;       /* ✅ 배너처럼 보이게 */
+
+  box-shadow: 0 8px 24px rgba(219, 178, 183, 0.35);
+}
+
+.hidden {
+  display: none;
+}
+
+.tab-helper-text small {
+  font-size: 0.72rem;
+  color: #999;
+  letter-spacing: 0.02em;
+
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 4px solid #dbb2b7;  /* ✅ 핑크 포인트 */
+}
+
+/* ✅ 로딩 전체 오버레이 */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.96);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ 로딩 중앙 박스 */
+.loading-box {
+  text-align: center;
+  padding: 40px 36px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* ✅ 스피너 */
+.spinner {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 18px;
+  border: 4px solid #f2f2f2;
+  border-top: 4px solid #dbb2b7;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ✅ 로딩 메인 텍스트 */
+.loading-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+/* ✅ 로딩 서브 텍스트 */
+.loading-sub {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ✅ 전역 기본 폰트 */
+body {
+  font-family: 'S-CoreDream-Light', sans-serif;
+}
+
+/* ✅ 메인 섹션 제목용 */
+.title-main {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ✅ 서브 타이틀 / 중간 제목 */
+.title-sub {
+  font-family: 'S-CoreDream-3Light', sans-serif;
+  font-weight: normal;
+  letter-spacing: -0.3px;
+}
+
+/* ✅ 일반 본문 */
+.text-body {
+  font-family: 'S-CoreDream-Light', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #666;
+}
+
+.result-intro p {
+  font-family: 'S-CoreDream-Light', sans-serif;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #666;
+}
+
+.result-intro strong {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  color: #111;
+}
+
+.alert-box {
+  margin-top: 10px;
+}
+
+
+.title-pill-text {
+  font-family: 'S-CoreDream-Bold', sans-serif;
+  font-size: 2.2rem;               /* ✅ 캡슐 안 글자 크기 */
+  margin: 0;
+  color: #111;
+}
+
+.title-pill-wrap {
+  display: flex;                 /* ✅ inline-flex → flex */
+  justify-content: center;
+  align-items: center;
+  padding: 16px 46px;
+  background: #f6dee3;
+  border-radius: 999px;
+
+  width: fit-content;            /* ✅ 핵심 */
+  margin: 24px auto 36px;        /* ✅ 중앙 기준 통일 */
+
+  box-shadow: 0 6px 14px rgba(212, 136, 150, 0.18);
+}
+
+.result-intro {
+  max-width: 680px;          /* ✅ 이미지랑 동일한 기준 */
+  margin: 0 auto 45px;      /* ✅ 좌우 중앙 고정 */
+  text-align: center;
+}
+
+.hero-image-wrapper {
+  max-width: 680px;
+  margin: 0 auto 40px;
+}
+
+.section-center {
+  max-width: 680px;     /* ✅ 위의 캡슐, intro, 이미지랑 동일 */
+  margin: 0 auto 30px; /* ✅ 좌우 정확히 중앙 */
+  text-align: center;
+}
+
+.retry-desc {
+  max-width: 680px;
+  margin: 40px auto 14px;
+  text-align: center;
+  font-family: 'S-CoreDream-Light';
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.retry-btn-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* =========================================================
+   [Start Page Custom Override] - 모바일 깨짐 수정 완료 버전
+   ========================================================= */
+
+/* ⚠️ 중요: 이 자리에 있던 @import 코드는 모두 지우세요! (base.html로 옮김) */
+
+/* 1. Start 페이지 타이틀 (굵은 영문) */
+.intro-main {
+    /* HTML에서 불러온 Bodoni Moda 적용 */
+    font-family: 'Bodoni Moda', serif !important;
+    font-weight: 700 !important; /* 모바일에서도 확실하게 두껍게 나옴 */
+    text-transform: uppercase;
+    letter-spacing: -0.02em !important;
+    color: #000 !important;
+    text-align: center !important;
+    line-height: 1.2;
+}
+
+/* 2. 설명 글씨 (한글 - 프리텐다드) */
+.intro-sub {
+    font-family: 'Pretendard', sans-serif !important;
+    font-weight: 300 !important;
+    color: #666 !important;
+    font-size: 0.95rem !important;
+    text-align: center !important;
+    line-height: 1.6;
+}
+
+/* 3. 시작 버튼 (타이틀과 같은 폰트 통일) */
+.start-btn {
+    font-family: 'Bodoni Moda', serif !important;
+    background: #000 !important;
+    color: #fff !important;
+    border-radius: 50px !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+
+    height: 56px !important;
+    padding: 0 !important; /* 패딩 제거하고 Flex로 중앙 정렬 */
+
+    /* 텍스트 정중앙 배치 */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-bottom: 4px !important; /* 시각적 보정 */
+
+    margin: 40px auto 0 !important;
+    max-width: 300px !important;
+    width: 100% !important;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.start-btn:hover {
+    background: #fff !important;
+    color: #000 !important;
+    transform: translateY(-2px);
+}
+
+/* 4. 헤더 로고 폰트도 통일하고 싶다면 (선택사항) */
+.logo-text {
+    font-family: 'Bodoni Moda', serif !important;
+    font-weight: 700;
+}
+
+/* 5. 모바일 화면 글씨 크기 최적화 */
+@media (max-width: 480px) {
+    .intro-main {
+        font-size: 2.3rem !important;
+    }
+    .intro-sub {
+        font-size: 0.9rem !important;
+        padding: 0 16px;
+        word-break: keep-all;
+    }
+}
+/* =========================================================
+   [NEXT Button Styling] - Start 버튼과 동일한 스타일 적용
+   ========================================================= */
+
+.btn-primary {
+    background: #000 !important;
+    color: #fff !important;
+    border-radius: 50px !important;
+
+    /* ✅ 수정 완료: Italiana -> Bodoni Moda로 변경 */
+    font-family: 'Bodoni Moda', serif !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important; /* 굵기도 600으로 맞춤 */
+    text-transform: uppercase !important;
+
+    /* 높이 고정 및 중앙 정렬 */
+    height: 56px !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    /* 텍스트 시각적 높이 보정 */
+    padding-bottom: 3px !important;
+
+    width: 100% !important;
+    max-width: 300px !important;
+    margin: 40px auto 0 !important;
+    border: 1px solid #000 !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    background: #fff !important;
+    color: #000 !important;
+    transform: translateY(-2px);
+}
+/* style.css 파일 맨 끝에 아래 내용을 추가하세요 */
+
+/* =========================================
+   [긴급 수정] 폰트 가독성 보정 패치
+   ========================================= */
+.intro-main,
+.logo-text,
+.result-title {
+    /* 1. 얇은 선이 사라지지 않도록 '단단한 두께감' 강제 적용 */
+    font-variation-settings: 'opsz' 12 !important;
+
+    /* 2. 글자 자체 두께도 확실하게 굵게 */
+    font-weight: 700 !important;
+}
+/* style.css 맨 아래에 추가/수정 */
+
+.intro-main {
+    /* 기존 2.8rem -> 2.4rem으로 아주 조금 축소 */
+    font-size: 2.4rem !important;
+
+    /* 폰트가 작아진 만큼 줄 간격도 살짝 조절 */
+    line-height: 1.3 !important;
+}

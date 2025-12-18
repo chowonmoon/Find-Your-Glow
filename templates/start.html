@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Find Your Atmosphere{% endblock %}
+
+{% block content %}
+
+<div class="terminal-card start-card">
+    <div class="card-body">
+
+        <div style="margin-bottom: 40px;">
+             <img src="{{ url_for('static', filename='img/intro.jpg') }}"
+                  alt="Muse Mood"
+                  style="width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto;">
+        </div>
+
+        <h1 class="intro-main" style="margin-bottom: 15px; font-size: 2.8rem; color: #000;">
+            FIND YOUR GLOW
+        </h1>
+
+        <p class="intro-sub" style="margin-bottom: 50px; line-height: 1.8;">
+            AI가 분석하는 당신만의 퍼스널 무드<br>
+            가장 나다운 메이크업을 찾아보세요.
+        </p>
+
+        <button class="btn-primary start-btn" onclick="location.href='/profile1'">
+            Start
+        </button>
+
+        <div style="margin-top: 80px; margin-bottom: 20px;">
+            <p style="font-size: 0.75rem; color: #bbb; letter-spacing: 0.05em; font-family: 'Pretendard', sans-serif;">
+                System Built by <span style="color: #666; font-weight: 600;">문초원 · 황애진</span>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

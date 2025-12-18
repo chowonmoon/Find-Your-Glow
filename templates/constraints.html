@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block title %}Detail Check{% endblock %}
+
+{% block content %}
+
+<style>
+    /* 1. 알약 버튼 스타일 (짝대기 제거 + 흐리게 + 알약 모양) */
+    .face-option input:disabled + .choice-box,
+    .face-option.disabled .choice-box {
+        text-decoration: none !important;
+        opacity: 0.35;
+        background: #f9f9f9;
+        color: #ccc;
+        border-color: #eee;
+        cursor: not-allowed;
+    }
+    .face-option input:disabled + .choice-box span,
+    .face-option.disabled .choice-box span {
+        text-decoration: none !important;
+    }
+
+    /* 2. 섹션 제목 (밑줄 제거) */
+    .section-label-clean {
+        font-family: 'S-CoreDream-3Light', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #111;
+        text-align: center;
+        margin: 0 auto 16px;
+    }
+
+    /* 3. ✅ 개선된 알림 박스 (높이 축소 + 정렬 교정 + 줄바꿈 방지) */
+    .info-box {
+        background-color: #fff8f8;
+        border: 1px dashed #D48896;
+        color: #b05c6e;
+        padding: 14px 10px;
+        margin: 0 auto 24px;
+        border-radius: 12px;
+        max-width: 400px;
+
+        /* 내부 요소 완벽 중앙 정렬 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        word-break: keep-all; /* 단어 단위 줄바꿈 */
+    }
+
+    /* 체크박스 숨기기 */
+    .constraint-checkbox { display: none; }
+
+    /* 알약 버튼 스타일 (choice-box 재활용) */
+    .constraint-pill-style {
+        border: 1px solid #ddd;
+        background: #fff;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 체크된 상태 */
+    input:checked + .constraint-pill-style {
+        background: #111;
+        border-color: #111;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    input:checked + .constraint-pill-style span {
+        color: #fff;
+    }
+</style>
+
+<div class="terminal-card">
+
+    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+        <span style="font-family: 'Pretendard'; font-size: 0.8rem; letter-spacing: 2px; color: #999;">STEP 05</span>
+    </div>
+
+    <div class="step-block step-block-header">
+        <h2 class="sub-title" style="font-family: 'S-CoreDream-Bold'; margin-top: 0; margin-bottom: 15px;">
+            DETAIL POINTS
+        </h2>
+
+        <div class="info-box">
+            <div style="font-size: 0.95rem; margin-bottom: 4px; line-height: 1.4;">
+                <span style="font-weight: 700;">💡 Notice</span>
+                <span style="margin: 0 4px; color: #eec1c1;">|</span>
+                선택하신 조건의 <strong>가능한 옵션</strong>만 활성화됩니다.
+            </div>
+
+            <div style="font-size: 0.75rem; opacity: 0.8;">
+                (선택하지 않아도 결과 분석이 가능합니다)
+            </div>
+        </div>
+    </div>
+
+    <form id="constraints_reload_form" action="/constraints" method="POST">
+        <input type="hidden" name="tone" value="{{ tone }}">
+        <input type="hidden" name="nickname" value="{{ nickname }}">
+        <input type="hidden" name="occasion" value="{{ occasion }}">
+        <input type="hidden" name="face_shape" value="{{ face_shape }}">
+        <input type="hidden" name="tab_mode" value="{{ tab_mode }}">
+        <input type="hidden" name="moods" value="{{ moods }}">
+        <input type="hidden" name="tags" value="{{ tags }}">
+        <input type="hidden" name="style_tag" value="{{ style_tag }}">
+        <input type="hidden" name="constraints" id="reload_constraints_field">
+    </form>
+
+    <form id="final_submit_form" action="/result" method="POST" class="card-body" style="padding-top: 0;">
+        <input type="hidden" name="tone" value="{{ tone }}">
+        <input type="hidden" name="nickname" value="{{ nickname }}">
+        <input type="hidden" name="occasion" value="{{ occasion }}">
+        <input type="hidden" name="face_shape" value="{{ face_shape }}">
+        <input type="hidden" name="tab_mode" value="{{ tab_mode }}">
+        <input type="hidden" name="moods" value="{{ moods }}">
+        <input type="hidden" name="tags" value="{{ tags }}">
+        <input type="hidden" name="style_tag" value="{{ style_tag }}">
+        <input type="hidden" name="constraints" id="final_constraints_field">
+
+        <div class="step-block step-block-choice">
+
+            <div class="constraint-section">
+                <h3 class="section-label-clean">나의 눈매</h3>
+                <div class="constraint-grid" style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                    {% for tag in ["#무쌍", "#속쌍", "#애교살"] %}
+                    <label class="face-option" style="width: auto; margin-bottom: 0;">
+                        <input type="checkbox" name="eye_features" value="{{ tag }}"
+                               class="constraint-checkbox"
+                               {% if (available_tags is not defined) or (not available_tags) or (tag not in available_tags) %}
+                                   disabled
+                               {% endif %}
+                               {% if tag in selected_constraints %}checked{% endif %}>
+
+                        <div class="choice-box constraint-pill-style" style="padding: 10px 20px; border-radius: 50px; min-width: 80px;">
+                            <span class="face-label" style="font-size:0.9rem; margin:0;">{{ tag }}</span>
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="constraint-gap" style="height: 25px;"></div>
+
+            <div class="constraint-section">
+                <h3 class="section-label-clean">선호 스타일</h3>
+                <div class="constraint-grid" style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                    {% for tag in ["#노파데", "#노아이라인", "#오버립"] %}
+                    <label class="face-option" style="width: auto; margin-bottom: 0;">
+                        <input type="checkbox" name="makeup_prefs" value="{{ tag }}"
+                               class="constraint-checkbox"
+                               {% if (available_tags is not defined) or (not available_tags) or (tag not in available_tags) %}
+                                   disabled
+                               {% endif %}
+                               {% if tag in selected_constraints %}checked{% endif %}>
+
+                        <div class="choice-box constraint-pill-style" style="padding: 10px 20px; border-radius: 50px; min-width: 80px;">
+                            <span class="face-label" style="font-size:0.9rem; margin:0;">{{ tag }}</span>
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        <p class="helper-text hidden" id="no-available-msg" style="margin-top: 30px; color: #999; text-align: center;">
+            현재 선택 가능한 옵션이 없어요!<br>
+            바로 결과를 확인해보세요
+        </p>
+
+        <div class="card-footer" style="justify-content: center; border: none; padding-top: 35px;">
+            <button type="submit" class="btn-primary">RESULT</button>
+        </div>
+    </form>
+
+</div>
+
+<div id="loading-overlay" class="loading-overlay hidden">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <p class="loading-text">결과 생성하는 중...</p>
+    <span class="loading-sub">조금만 기다려주세요 ✨</span>
+  </div>
+</div>
+
+<script>
+    const reloadForm = document.getElementById("constraints_reload_form");
+    const finalForm = document.getElementById("final_submit_form");
+    const loadingOverlay = document.getElementById("loading-overlay");
+    const loadingText = document.querySelector(".loading-text");
+
+    // ✅ 로딩 멘트 리스트 (움직이는 효과!)
+    const messages = [
+        "사용자 데이터 분석 중... 🔍",
+        "퍼스널 컬러 & 무드 매칭 중... 🎨",
+        "어울리는 메이크업 찾는 중... 💄",
+        "최종 리포트 작성 중... ✨",
+        "거의 다 됐어요! 조금만 더... 🏃‍♀️"
+    ];
+
+    function startLoadingAnimation() {
+        loadingOverlay.classList.remove("hidden");
+
+        let msgIndex = 0;
+        // 1.5초마다 멘트 변경
+        setInterval(() => {
+            msgIndex = (msgIndex + 1) % messages.length;
+            loadingText.innerText = messages[msgIndex];
+        }, 1500);
+    }
+
+    function collectSelected() {
+        const list = [];
+        document.querySelectorAll(".constraint-checkbox:checked").forEach(c => {
+            list.push(c.value);
+        });
+        return list.join(",");
+    }
+
+    // 체크 변화 → reload
+    document.querySelectorAll(".constraint-checkbox").forEach(chk => {
+        chk.addEventListener("change", () => {
+            document.getElementById("reload_constraints_field").value = collectSelected();
+            reloadForm.submit();
+        });
+    });
+
+    // 최종 제출
+    finalForm.addEventListener("submit", () => {
+        document.getElementById("final_constraints_field").value = collectSelected();
+        startLoadingAnimation(); // ✅ 애니메이션 시작
+    });
+
+    // 비활성화 체크
+    const allInputs = document.querySelectorAll(".constraint-checkbox");
+    const enabledInputs = [...allInputs].filter(input => !input.disabled);
+
+    if (enabledInputs.length === 0) {
+        document.getElementById("no-available-msg").classList.remove("hidden");
+    }
+</script>
+
+{% endblock %}

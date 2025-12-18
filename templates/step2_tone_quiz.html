@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Vibe Check{% endblock %}
+{% block content %}
+
+<div class="terminal-card">
+
+    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+        <span style="font-family: 'Pretendard'; font-size: 0.8rem; letter-spacing: 2px; color: #999;">STEP 02</span>
+    </div>
+
+    <form action="/occasion" method="POST" class="card-body" style="text-align: center;">
+
+        <input type="hidden" name="nickname" value="{{ nickname }}">
+        <input type="hidden" name="face_shape" value="{{ face_shape }}">
+
+        <!-- ✅ 1. 타이틀 & 설명 블럭 -->
+        <div class="step-block step-block-header">
+            <h2 class="sub-title">퍼스널 컬러 선택</h2>
+
+            <p class="intro-text">
+                어려운 용어는 잠시 잊고,<br>
+                평소 <strong>더 끌리는 분위기</strong>를 골라보세요.
+            </p>
+        </div>
+
+        <!-- ✅ 2. 웜 / 쿨 선택 블럭 -->
+        <div class="step-block step-block-choice">
+
+            <div class="face-grid tone-intro-grid">
+
+                <label class="face-option quiz-warm">
+                    <input type="radio" name="tone" value="웜톤" required>
+
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/warm_quiz.jpg') }}"
+                             alt="Warm"
+                             class="quiz-img">
+
+                        <span class="quiz-title">웜톤</span><br>
+                        <span class="quiz-desc">
+                            <br>
+                            따뜻하고 포근한<br>
+                            <strong>오렌지 · 골드</strong> 무드
+                        </span>
+                    </div>
+                </label>
+
+                <label class="face-option quiz-cool">
+                    <input type="radio" name="tone" value="쿨톤">
+
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/cool_quiz.jpg') }}"
+                             alt="Cool"
+                             class="quiz-img">
+
+                        <span class="quiz-title">쿨톤</span><br>
+                        <span class="quiz-desc">
+                             <br>
+                            시크하고 깨끗한<br>
+                            <strong>핑크 · 실버</strong> 무드
+                        </span>
+                    </div>
+                </label>
+
+            </div>
+
+            <!-- ✅ 2-1. TIP 영역 -->
+            <p class="hint-text">
+                <span class="tip-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2 L13.5 8.5 L20 10 L13.5 11.5 L12 18 L10.5 11.5 L4 10 L10.5 8.5 Z"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.4"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                TIP: 평소 즐겨 쓰는 립스틱이나 액세서리 컬러를 떠올려보세요!
+            </p>
+
+        </div>
+
+        <!-- ✅ 3. 버튼 블럭 -->
+        <div class="card-footer">
+            <button type="submit" class="btn-primary">NEXT</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Select Occasion{% endblock %}
+{% block content %}
+
+<div class="terminal-card">
+
+    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+        <span style="font-family: 'Pretendard'; font-size: 0.8rem; letter-spacing: 2px; color: #999;">STEP 03</span>
+    </div>
+
+    <form action="/mood" method="POST" class="card-body" style="text-align: center;">
+
+        <input type="hidden" name="nickname" value="{{ nickname }}">
+        <input type="hidden" name="face_shape" value="{{ face_shape }}">
+        <input type="hidden" name="tone" value="{{ tone }}">
+        <input type="hidden" name="tags" id="oc-tags-value">
+
+        <div class="step-block step-block-header">
+            <h2 class="sub-title">오늘의 상황</h2>
+
+            <p class="intro-text">
+                오늘의 <strong>상황</strong>을 선택해주세요.
+            </p>
+        </div>
+
+        <div class="step-block step-block-choice">
+
+            <div class="occasion-grid-3col">
+
+                <label class="face-option">
+                    <input type="radio" name="occasion" value="데일리" required>
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/daily.avif') }}" class="tpo-img" alt="데일리">
+                        <span class="tone-kor">데일리</span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="occasion" value="출근/등교">
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/work.avif') }}" class="tpo-img" alt="출근/등교">
+                        <span class="tone-kor">출근 · 등교</span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="occasion" value="데이트">
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/date.png') }}" class="tpo-img" alt="데이트">
+                        <span class="tone-kor">데이트</span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="occasion" value="격식있는">
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/formal.avif') }}" class="tpo-img" alt="격식있는">
+                        <span class="tone-kor">격식있는</span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="occasion" value="파티">
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/party.avif') }}" class="tpo-img" alt="파티">
+                        <span class="tone-kor">파티</span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="occasion" value="야외/여행">
+                    <div class="choice-box">
+                        <img src="{{ url_for('static', filename='img/travel.avif') }}" class="tpo-img" alt="여행">
+                        <span class="tone-kor">여행 · 야외</span>
+                    </div>
+                </label>
+
+            </div>
+
+        </div>
+
+        <div id="tpo-tags" class="step-block step-block-tags hidden" style="background: transparent; box-shadow: none; margin-top: 20px; padding: 0;">
+
+            <h3 class="subtag-title" style="font-family: 'Pretendard', sans-serif; font-size: 1.1rem; color: #000; font-weight: 700; margin-bottom: 8px;">
+                세부 태그
+            </h3>
+
+            <p class="subtag-helper-text" style="font-family: 'Pretendard', sans-serif; color: #888; font-size: 0.85rem;">
+                원하실 때만 골라주세요.
+            </p>
+
+            <div id="tpo-tag-container" class="tag-container" style="justify-content: center; margin-top: 15px;">
+                </div>
+
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn-primary">NEXT</button>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+const MAPPER = {
+    "데일리": [],
+    "출근/등교": ["#직장인/출근", "#학생/등교"],
+    "데이트": ["#벚꽃/피크닉"],
+    "격식있는": ["#하객/결혼식", "#증명사진/졸사"],
+    "파티": ["#연말/크리스마스"],
+    "야외/여행": []
+};
+
+let selectedTag = null;
+
+const tagSection = document.getElementById("tpo-tags");
+const tagContainer = document.getElementById("tpo-tag-container");
+const tagInput = document.getElementById("oc-tags-value");
+
+document.querySelectorAll("input[name='occasion']").forEach(radio => {
+
+    radio.addEventListener("change", function () {
+
+        const oc = this.value;
+        const tags = MAPPER[oc] || [];
+
+        tagContainer.innerHTML = "";
+        selectedTag = null;
+        tagInput.value = "";
+
+        if (tags.length > 0) {
+            tagSection.classList.remove("hidden");
+
+            tags.forEach(tag => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "chip-btn";
+                btn.textContent = tag;
+
+                btn.onclick = () => {
+                    if (selectedTag === tag) {
+                        selectedTag = null;
+                        btn.classList.remove("selected");
+                        tagInput.value = "";
+                        return;
+                    }
+                    selectedTag = tag;
+                    tagContainer.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("selected"));
+                    btn.classList.add("selected");
+                    tagInput.value = tag;
+                };
+                tagContainer.appendChild(btn);
+            });
+        } else {
+            tagSection.classList.add("hidden");
+        }
+    });
+});
+</script>
+
+{% endblock %}

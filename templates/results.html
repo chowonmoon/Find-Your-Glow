@@ -1,0 +1,390 @@
+{% extends "base.html" %}
+{% block title %}Your Muse Look{% endblock %}
+
+{% block content %}
+
+<!-- 폰트 로드 (타이틀용) -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Pretendard:wght@300;400;600;700&display=swap');
+</style>
+
+<style>
+    /* =========================================
+       [NEW] 1. 상단 타이틀 & 태그 (잡지 스타일)
+       ========================================= */
+    .result-header-area {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .result-label {
+        font-family: 'Pretendard', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        color: #999;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .result-title {
+        font-family: 'Italiana', serif;
+        font-size: 2.6rem; /* 폰트 크기 시원하게 */
+        color: #111;
+        margin: 0 0 20px 0;
+        line-height: 1.1;
+
+        /* ✅ 폰트 두껍게 (요청사항 반영) */
+        font-weight: 700;
+        text-shadow: 0.5px 0 0 #111; /* 두께감 보정 */
+    }
+
+    /* 태그 칩 컨테이너 */
+    .result-tags-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* 공통 칩 스타일 */
+    .result-chip {
+        display: inline-block;
+        padding: 7px 16px;
+        border-radius: 999px;
+        font-family: 'Pretendard', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #555;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    /* 닉네임 칩 (검정 강조) */
+    .result-chip.chip-black {
+        background: #111;
+        border-color: #111;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    /* 톤/무드 칩 (핑크 강조) */
+    .result-chip.chip-pink {
+        background: #fff0f3;
+        border-color: #dbb2b7;
+        color: #b05c6e;
+    }
+
+    /* =========================================
+       [ORIGINAL] 2. 메인 컨투어 이미지 (태초 코드 유지)
+       ========================================= */
+    .hero-image-wrapper {
+        width: 100%;
+        max-width: 600px; /* 태초 코드 사이즈 */
+        margin: 0 auto 40px;
+        position: relative;
+    }
+    .hero-contour-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px; /* 태초 코드의 둥글기 */
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    /* =========================================
+       [ORIGINAL] 3. 꿀팁 박스 (태초 코드 유지: 핑크 선)
+       ========================================= */
+    .tip-box {
+        background: #f9f9f9;
+        border-left: 4px solid #D48896; /* 핑크색 선 유지 */
+        padding: 20px 25px;
+        margin: 0 auto 50px;
+        max-width: 600px;
+        text-align: left;
+    }
+    .tip-title {
+        font-family: 'Italiana', serif;
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 10px;
+        display: block;
+    }
+    .tip-content {
+        font-family: 'Pretendard', sans-serif;
+        font-size: 0.95rem;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    /* =========================================
+       [ORIGINAL + NEW] 4. 유튜브 추천 (태초 스타일 + 재생버튼)
+       ========================================= */
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+    .video-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        text-align: left;
+    }
+    .video-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .thumb-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 비율 고정 */
+        overflow: hidden;
+        display: block;
+    }
+    .thumb-img {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    /* ✅ 재생 버튼 (이것만 추가됨) */
+    .thumb-wrapper::after {
+        content: "▶";
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 44px; height: 44px;
+        background: rgba(0,0,0,0.5);
+        border: 2px solid rgba(255,255,255,0.9);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 16px;
+        line-height: 40px;
+        text-align: center;
+        backdrop-filter: blur(2px);
+        transition: all 0.2s;
+        pointer-events: none;
+    }
+    .video-card:hover .thumb-wrapper::after {
+        background: #D48896;
+        border-color: #D48896;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    .video-card:hover .thumb-img {
+        transform: scale(1.03);
+    }
+
+    .video-info { padding: 15px; }
+    .video-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #111;
+        margin-bottom: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-decoration: none;
+    }
+    .video-channel {
+        font-size: 0.85rem; color: #888; margin-bottom: 10px;
+    }
+    .video-meta-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        background: #f5f5f5; color: #666;
+        padding: 4px 8px; border-radius: 4px;
+        margin-right: 4px; margin-bottom: 4px;
+    }
+
+    /* 알림 박스 */
+    .alert-box {
+        background-color: #fff8f8;
+        border: 1px dashed #D48896;
+        color: #b05c6e;
+        padding: 15px;
+        margin: 20px auto;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        text-align: center;
+        max-width: 600px;
+    }
+
+    /* 재시도 버튼 */
+    .retry-area {
+        margin-top: 60px;
+        padding-top: 30px;
+        border-top: 1px solid #eee;
+        text-align: center;
+    }
+    .btn-outline {
+        display: inline-block;
+        padding: 12px 30px;
+        border: 1px solid #ddd;
+        border-radius: 50px;
+        background: #fff;
+        color: #666;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Pretendard', sans-serif;
+    }
+    .btn-outline:hover {
+        border-color: #111; color: #111; background: #f9f9f9;
+    }
+
+    /* 섹션 타이틀 */
+    .section-center { text-align: center; margin-bottom: 20px; }
+    .title-main { font-size: 1.6rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .title-sub { font-size: 1.1rem; color: #333; }
+    .text-body { font-size: 0.95rem; color: #666; line-height: 1.6; }
+</style>
+
+<div class="terminal-card">
+
+    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+        <span style="font-family: 'Pretendard'; font-size: 0.8rem; letter-spacing: 2px; color: #999;">FINAL RESULT</span>
+    </div>
+
+    <div class="card-body" style="padding-top: 20px;">
+
+        <!-- ✅ 1. 상단 디자인: 맘에 드셨던 잡지 스타일 (Today's Look + 칩) -->
+        <div class="result-header-area">
+            <span class="result-label">Personalized Recipe</span>
+            <h1 class="result-title">Today's Look</h1>
+
+            <div class="result-tags-container">
+                <!-- 1. 닉네임 (검정 칩) -->
+                <span class="result-chip chip-black">@{{ nickname }}</span>
+
+                <!-- 2. 퍼스널 컬러 -->
+                {% if not ignore_tone %}
+                    <span class="result-chip chip-pink">{{ tone }}</span>
+                {% endif %}
+
+                <!-- 3. 상황 -->
+                <span class="result-chip chip-pink">{{ occasion }}</span>
+
+                <!-- 4. 무드/스타일 -->
+                {% if tab_mode == "B" %}
+                     <span class="result-chip chip-pink">{{ style_tag }}</span>
+                {% else %}
+                    {% if mood_display %}
+                        <span class="result-chip chip-pink">{{ mood_display }}</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        {% if flag_info and flag_info.msg %}
+        <div class="alert-box">
+            <strong>💡 Notice</strong><br>
+            {{ flag_info.msg }}
+        </div>
+        {% endif %}
+
+        <!-- 2. 메인 이미지 (태초 코드 사이즈: 600px 유지) -->
+        <div class="hero-image-wrapper">
+            <img
+                    src="{{ url_for('static', filename='img/contouring/' ~ contour_filename) }}"
+                    alt="추천 메이크업 컨투어"
+                    class="hero-contour-img"
+            >
+            <p class="title-sub" style="text-align:center; font-size:0.9rem; color:#999; margin-top:10px;">
+                <small>Personalized Contouring Map</small>
+            </p>
+        </div>
+
+        <!-- 3. AI 코멘트 (태초 코드 유지: 핑크 선 + AI 메이크업 코멘트) -->
+        {% if style_tip %}
+        <div class="tip-box">
+            <span class="title-sub" style="display:block; font-weight:700; margin-bottom:10px; color:#333;">
+                AI 메이크업 코멘트 🖊️
+            </span>
+            <p class="text-body" style="white-space: pre-line;">
+                {{ style_tip }}
+            </p>
+        </div>
+        {% endif %}
+
+
+        <!-- 4. 추천 영상 섹션 (태초 코드 유지 + 재생버튼 추가) -->
+        <div class="section-center">
+            <h3 class="title-main">
+                오늘의 추천 영상
+            </h3>
+            <p class="text-body" style="color: #888;">
+                당신의 분위기를 완성해줄 튜토리얼
+            </p>
+        </div>
+
+        {% if results %}
+            <div class="video-grid">
+            {% for item in results[:3] %}
+                <div class="video-card">
+                    <a href="{{ item.url }}" target="_blank" class="thumb-wrapper">
+                        <img
+                            src="https://img.youtube.com/vi/{{ item.video_id }}/hqdefault.jpg"
+                            alt="thumbnail"
+                            class="thumb-img"
+                        >
+                    </a>
+
+                    <div class="video-info">
+                        <a href="{{ item.url }}" target="_blank" class="video-title">
+                            {{ item.title }}
+                        </a>
+
+                        <p class="video-channel">By. {{ item.channel }}</p>
+
+                        <div style="margin-top: 10px;">
+                            <span class="video-meta-badge">{{ item.tone }}</span>
+                            <span class="video-meta-badge">{{ item.moods }}</span>
+                            <span class="video-meta-badge" style="background:#fff0f3; color:#d48896;">Match {{ '%.0f'|format(item.score) }}%</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center; color: #999; padding: 40px;">추천 결과가 없습니다.</p>
+        {% endif %}
+
+
+        <!-- 재시도 영역 (태초 코드) -->
+        <div class="retry-area">
+            <form action="/result" method="POST">
+                <input type="hidden" name="tone" value="{{ tone }}">
+                <input type="hidden" name="face_shape" value="{{ face_shape }}">
+                <input type="hidden" name="occasion" value="{{ occasion }}">
+                <input type="hidden" name="moods" value="{{ moods }}">
+                <input type="hidden" name="tags" value="{{ tags | join(',') }}">
+                <input type="hidden" name="tab_mode" value="{{ tab_mode }}">
+                <input type="hidden" name="style_tag" value="{{ style_tag }}">
+                <input type="hidden" name="nickname" value="{{ nickname }}">
+
+                <input type="hidden" name="ignore_tone" value="true">
+
+                <p class="retry-desc" style="color:#666; margin-bottom:15px;">
+                    혹시 결과가 너무 한정적인가요?
+                </p>
+                <div class="retry-btn-wrap">
+                    <button type="submit" class="btn-outline">
+                        퍼스널 컬러 제외하고 넓게 보기
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

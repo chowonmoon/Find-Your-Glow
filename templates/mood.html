@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+{% block title %}Style Check{% endblock %}
+{% block content %}
+
+<style>
+    /* 칩 버튼 기본 스타일 (회색 테두리) */
+    .chip-btn {
+        border: 1.5px solid #e5e5e5;
+        background: #fff;
+        color: #444;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: 'Pretendard', sans-serif;
+    }
+
+    .chip-btn:hover {
+        background: #f7f7f7;
+    }
+
+    /* ✅ 선택된 상태: 핑크색 (Occasion 디자인 + 핑크 컬러) */
+    .chip-btn.selected {
+        border-color: #dbb2b7 !important;
+        background: #fdecef !important; /* 연한 핑크 배경 */
+        color: #111 !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 10px rgba(219, 178, 183, 0.35) !important;
+    }
+</style>
+
+<div class="terminal-card">
+
+  <div class="card-header" style="border-bottom:none;">
+    <span style="font-size:0.8rem; letter-spacing:2px; color:#999;">STEP 04</span>
+  </div>
+
+  <div class="step-block step-block-header">
+    <h2 class="sub-title">오늘의 스타일</h2>
+    <p class="intro-text">
+        원하는 <strong>분위기</strong> 또는 <strong>워너비 스타</strong>를 선택하세요.
+    </p>
+  </div>
+
+  <div class="tab-wrapper" style="margin-bottom: 24px;">
+    <button type="button" class="tab-btn active" id="tabA">분위기</button>
+    <button type="button" class="tab-btn" id="tabB">워너비 스타</button>
+  </div>
+
+  <form action="/constraints" method="POST" id="mood-form" class="card-body">
+
+    <input type="hidden" name="nickname" value="{{ nickname }}">
+    <input type="hidden" name="face_shape" value="{{ face_shape }}">
+    <input type="hidden" name="tone" value="{{ tone }}">
+    <input type="hidden" name="occasion" value="{{ occasion }}">
+    <input type="hidden" name="tab_mode" id="tab_mode" value="A">
+
+    <input type="hidden" name="tags" id="tags_field" value="{{ tags }}">
+    <input type="hidden" name="style_tag" id="style_tag_field" value="">
+
+    <div id="tabA-content" class="step-block step-block-choice">
+
+      <div class="mood-grid-list">
+
+        <label class="mood-main-pill">
+          <input type="radio" name="moods" value="group_natural">
+          <div class="style-pill-box"><span>내추럴 · 청순</span></div>
+        </label>
+
+        <label class="mood-main-pill">
+          <input type="radio" name="moods" value="group_lovely">
+          <div class="style-pill-box"><span>러블리</span></div>
+        </label>
+
+        <label class="mood-main-pill">
+          <input type="radio" name="moods" value="group_glam">
+          <div class="style-pill-box"><span>글램 · 고급</span></div>
+        </label>
+
+        <label class="mood-main-pill">
+          <input type="radio" name="moods" value="group_chic">
+          <div class="style-pill-box"><span>시크</span></div>
+        </label>
+
+        <label class="mood-main-pill">
+          <input type="radio" name="moods" value="group_hip">
+          <div class="style-pill-box"><span>힙 · 유니크</span></div>
+        </label>
+      </div>
+
+      <div id="subtags-wrapper" class="step-block step-block-tags hidden"
+           style="background: transparent; box-shadow: none; margin-top: 20px; padding: 0;">
+
+          <h3 class="subtag-title"
+              style="font-family: 'Pretendard', sans-serif; font-size: 1.1rem; color: #000; font-weight: 700; margin-bottom: 8px;">
+              세부 태그
+          </h3>
+
+          <p class="subtag-helper-text"
+             style="font-family: 'Pretendard', sans-serif; color: #888; font-size: 0.85rem;">
+              원하실 때만 골라주세요.
+          </p>
+
+          <div id="subtags-container" class="tag-container"
+               style="justify-content: center; margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
+          </div>
+      </div>
+
+    </div>
+
+    <div id="tabB-content" class="hidden">
+        <div class="step-block step-block-choice">
+            {% set wannabe_map = [
+                ('#장원영', 'wonyoung.jpg'),
+                ('#에스파', 'aespa.jpg'),
+                ('#제니', 'jennie.jpg'),
+                ('#로제', 'rose.jpg'),
+                ('#뉴진스', 'newjeans.jpg'),
+                ('#아이돌커버', 'kpop.jpg'),
+                ('#배우메이크업', 'actor.jpg')
+            ] %}
+
+            <div class="wannabe-grid">
+                {% for label, img in wannabe_map %}
+                <label class="face-option wannabe-pill">
+                    <input type="radio" name="wannabe" value="{{ label }}">
+                    <div class="choice-box wannabe-card">
+                        <img src="{{ url_for('static', filename='img/' + img) }}"
+                             class="tpo-img wannabe-img"
+                             alt="{{ label }}">
+                        <span class="tone-kor">{{ label }}</span>
+                    </div>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card-footer">
+      <button type="submit" class="btn-primary">NEXT</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+/***********************
+ * 기본 요소
+ ***********************/
+const tabA = document.getElementById("tabA");
+const tabB = document.getElementById("tabB");
+const tabA_content = document.getElementById("tabA-content");
+const tabB_content = document.getElementById("tabB-content");
+const tab_mode = document.getElementById("tab_mode");
+const tagsField = document.getElementById("tags_field");
+const styleTagField = document.getElementById("style_tag_field");
+
+let lastMood = null;
+let lastStar = null;
+
+/***********************
+ * TAB SWITCH
+ ***********************/
+function showTabA() {
+    tabA_content.classList.remove("hidden");
+    tabB_content.classList.add("hidden");
+    tabA.classList.add("active");
+    tabB.classList.remove("active");
+    tab_mode.value = "A";
+}
+
+function showTabB() {
+    tabA_content.classList.add("hidden");
+    tabB_content.classList.remove("hidden");
+    tabA.classList.remove("active");
+    tabB.classList.add("active");
+    tab_mode.value = "B";
+}
+
+tabA.onclick = () => { if (!tabA.classList.contains("disabled")) showTabA(); };
+tabB.onclick = () => { if (!tabB.classList.contains("disabled")) showTabB(); };
+
+/***********************
+ * MOOD → 세부 태그 목록
+ ***********************/
+const MOOD_SUB = {
+    "group_natural": ["#꾸안꾸", "#민낯/클린걸", "#울먹/청초", "#청순"],
+    "group_lovely":  ["#과즙상", "#복숭아", "#토끼혀/뽀용"],
+    "group_glam":    ["#속광/글로우", "#탕후루/물광", "#올드머니/고급", "#뮤트/음영"],
+    "group_chic":    ["#시크/고양이상", "#스모키", "#레드립/섹시", "#도우인"],
+    "group_hip":     ["#힙·트렌디", "#키치/유니크", "#Y2K"]
+};
+
+// ✅ 디자인은 Occasion(버튼) + 기능은 태초 로직(하나만 선택)
+function renderSubtags(moodKey) {
+    const wrap = document.getElementById("subtags-wrapper");
+    const box = document.getElementById("subtags-container");
+
+    box.innerHTML = "";
+
+    const tags = MOOD_SUB[moodKey] || [];
+    if (!tags.length) {
+        wrap.classList.add("hidden");
+        return;
+    }
+
+    wrap.classList.remove("hidden");
+
+    tags.forEach(tag => {
+        // 1. 버튼 생성 (디자인: Occasion 스타일)
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip-btn";
+        btn.textContent = tag;
+
+        // 2. 클릭 이벤트 (기능: 태초 코드의 '하나만 선택' 로직 적용)
+        btn.onclick = () => {
+            // 이미 선택된 걸 눌렀다면? -> 해제 (Toggle off)
+            if (btn.classList.contains("selected")) {
+                btn.classList.remove("selected");
+            }
+            // 안 선택된 걸 눌렀다면? -> 나머지는 다 끄고, 이것만 켜기 (Single Select)
+            else {
+                document.querySelectorAll(".chip-btn").forEach(other => {
+                    other.classList.remove("selected");
+                });
+                btn.classList.add("selected");
+            }
+            updateMoodTags();
+        };
+
+        box.appendChild(btn);
+    });
+}
+
+/***********************
+ * 태그 업데이트 (버튼에서 읽어오기)
+ ***********************/
+function updateMoodTags() {
+    const finalList = [];
+
+    // 기존 태그 유지 (단, 현재 무드 그룹 태그는 제외하고 다시 읽음)
+    const prev = tagsField.value ? tagsField.value.split(",") : [];
+    const moodAll = Object.values(MOOD_SUB).flat();
+    const filteredPrev = prev.filter(t => !moodAll.includes(t));
+
+    // 선택된 칩 버튼(하나뿐이겠지만) 읽어오기
+    const selectedBtns = document.querySelectorAll("#subtags-container .chip-btn.selected");
+    const currentSelectedTags = Array.from(selectedBtns).map(b => b.textContent);
+
+    // 합치기
+    const newList = [...filteredPrev, ...currentSelectedTags];
+    tagsField.value = newList.join(",");
+}
+
+/***********************
+ * Mood 선택
+ ***********************/
+document.querySelectorAll("input[name='moods']").forEach(radio => {
+    radio.addEventListener("click", () => {
+        if (lastMood === radio.value) {
+            radio.checked = false;
+            lastMood = null;
+            document.getElementById("subtags-wrapper").classList.add("hidden");
+            enableWannabe();
+            styleTagField.value = "";
+            return;
+        }
+        lastMood = radio.value;
+    });
+
+    radio.addEventListener("change", () => {
+        showTabA();
+        disableWannabe();
+        renderSubtags(radio.value);
+        styleTagField.value = "";
+    });
+});
+
+/***********************
+ * Wannabe 선택
+ ***********************/
+const starRadios = document.querySelectorAll(".wannabe-pill input");
+
+
+function disableMood() {
+    document.querySelectorAll(".mood-main-pill").forEach(p => p.classList.add("disabled"));
+    document.getElementById("subtags-wrapper").classList.add("hidden");
+    document.querySelectorAll("input[name='moods']").forEach(r => r.checked = false);
+    lastMood = null;
+}
+
+function enableMood() {
+    document.querySelectorAll(".mood-main-pill").forEach(p => p.classList.remove("disabled"));
+}
+
+function disableWannabe() {
+    tabB.classList.add("disabled");
+    document.querySelectorAll(".wannabe-pill").forEach(p => p.classList.add("disabled"));
+    starRadios.forEach(r => r.checked = false);
+    lastStar = null;
+}
+
+function enableWannabe() {
+    tabB.classList.remove("disabled");
+    document.querySelectorAll(".wannabe-pill").forEach(p => p.classList.remove("disabled"));
+}
+
+starRadios.forEach(radio => {
+    radio.addEventListener("click", () => {
+        if (lastStar === radio.value) {
+            radio.checked = false;
+            lastStar = null;
+            enableMood();
+
+            const prev = tagsField.value.split(",").filter(t => t && t !== lastStar);
+            tagsField.value = prev.join(",");
+            styleTagField.value = "";
+            return;
+        }
+        lastStar = radio.value;
+    });
+
+    radio.addEventListener("change", () => {
+        disableMood();
+        showTabB();
+
+        const prev = tagsField.value ? tagsField.value.split(",") : [];
+        const newList = [...prev.filter(t => !t.startsWith("#"))];
+        newList.push(radio.value);
+
+        tagsField.value = newList.join(",");
+        styleTagField.value = radio.value;
+    });
+});
+
+document.getElementById("mood-form").addEventListener("submit", function(e) {
+    const moodChecked = document.querySelector("input[name='moods']:checked");
+    const wannabeChecked = document.querySelector("input[name='wannabe']:checked");
+
+    if (!moodChecked && !wannabeChecked) {
+        alert("무드 또는 워너비 스타 중 하나는 선택해주세요!");
+        e.preventDefault();
+        return false;
+    }
+});
+
+</script>
+
+{% endblock %}

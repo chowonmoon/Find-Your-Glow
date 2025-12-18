@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}AI Makeup Recommender{% endblock %}</title>
+
+    <!-- ✅ Pretendard만 사용 (필기체 차단) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUIT:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="app-wrapper">
+        <header class="app-header">
+            <div class="logo-area">
+                <!-- ✅ 인라인 스타일 제거 -->
+                <span class="logo-text">AI Makeup Recommender</span>
+            </div>
+        </header>
+
+        <main class="app-main">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Select Your Tone{% endblock %}
+{% block content %}
+
+<div class="terminal-card">
+
+    <form action="/occasion" method="POST" class="card-body" style="text-align: center;">
+
+        <input type="hidden" name="nickname" value="{{ nickname }}">
+        <input type="hidden" name="face_shape" value="{{ face_shape }}">
+
+        <!-- ✅ 1. 타이틀 & 설명 블럭 -->
+        <div class="step-block step-block-header">
+            <h2 class="sub-title">퍼스널 컬러 선택</h2>
+
+            <p class="intro-text">
+                <span class="highlight-marker">{{ nickname }}</span> 님의
+                <strong>퍼스널 컬러</strong>를 선택해주세요.
+            </p>
+        </div>
+
+        <!-- ✅ 2. 톤 2×2 선택 블럭 -->
+        <div class="step-block step-block-choice">
+
+            <div class="tone-grid-2x2">
+
+                <label class="face-option tone-spring">
+                    <input type="radio" name="tone" value="봄웜" required>
+
+                    <div class="choice-box">
+                        <span class="tone-eng">Spring</span>
+                        <span class="tone-kor">봄 웜톤</span>
+                    </div>
+                </label>
+
+                <label class="face-option tone-summer">
+                    <input type="radio" name="tone" value="여쿨">
+
+                    <div class="choice-box">
+                        <span class="tone-eng">Summer</span>
+                        <span class="tone-kor">여름 쿨톤</span>
+                    </div>
+                </label>
+
+                <label class="face-option tone-autumn">
+                    <input type="radio" name="tone" value="가을웜">
+
+                    <div class="choice-box">
+                        <span class="tone-eng">Autumn</span>
+                        <span class="tone-kor">가을 웜톤</span>
+                    </div>
+                </label>
+
+                <label class="face-option tone-winter">
+                    <input type="radio" name="tone" value="겨쿨">
+
+                    <div class="choice-box">
+                        <span class="tone-eng">Winter</span>
+                        <span class="tone-kor">겨울 쿨톤</span>
+                    </div>
+                </label>
+
+            </div>
+
+        </div>
+
+        <!-- ✅ 3. 버튼 블럭 -->
+        <div class="card-footer">
+            <button type="submit" class="btn-primary">NEXT</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Profile Setup{% endblock %}
+
+{% block content %}
+
+<div class="terminal-card">
+
+    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+        <span>STEP 01</span>
+    </div>
+
+    <form action="/profile2" method="POST" class="card-body" style="text-align: center;">
+
+        <div class="step-block step-block-header">
+            <h2 class="sub-title">프로필 설정</h2>
+            <p class="intro-text">
+                <strong>닉네임</strong>과 <strong>얼굴형</strong>을 알려주세요.
+            </p>
+        </div>
+
+        <div class="step-block step-block-name" style="margin-bottom: 30px;">
+            <label class="nickname-label">
+                NAME
+            </label>
+            <input type="text" name="nickname" placeholder="예: 코덕원희" required class="modern-input">
+        </div>
+
+        <div class="step-block step-block-face">
+            <div class="face-grid">
+                <label class="face-option">
+                    <input type="radio" name="face_shape" value="oval" required>
+                    <div class="face-box">
+                        <img src="{{ url_for('static', filename='img/oval.jpg') }}" alt="Oval" class="face-img">
+                        <span class="face-label"><span>계란형</span></span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="face_shape" value="round">
+                    <div class="face-box">
+                        <img src="{{ url_for('static', filename='img/round.jpg') }}" alt="Round" class="face-img">
+                        <span class="face-label"><span>둥근형</span></span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="face_shape" value="diamond">
+                    <div class="face-box">
+                        <img src="{{ url_for('static', filename='img/diamond.jpg') }}" alt="Diamond" class="face-img">
+                        <span class="face-label"><span>땅콩형</span></span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="face_shape" value="square">
+                    <div class="face-box">
+                        <img src="{{ url_for('static', filename='img/square.jpg') }}" alt="Square" class="face-img">
+                        <span class="face-label"><span>각진형</span></span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="face_shape" value="heart">
+                    <div class="face-box">
+                        <img src="{{ url_for('static', filename='img/heart.jpg') }}" alt="Heart" class="face-img">
+                        <span class="face-label"><span>하트형</span></span>
+                    </div>
+                </label>
+
+                <label class="face-option">
+                    <input type="radio" name="face_shape" value="long">
+                    <div class="face-box">
+                        <img src="{{ url_for('static', filename='img/long.jpg') }}" alt="Long" class="face-img">
+                        <span class="face-label"><span>긴형</span></span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" class="btn-primary">NEXT</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
